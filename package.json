@@ -1,8 +1,8 @@
 {
   "name": "react-portfolio-website",
+  "homepage": "https://vamsi-krish-chiguruwada.github.io/portfolio2.0",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://vamsi-krish-chiguruwada.github.io/portfolio2.0",
   "dependencies": {
     "@emailjs/browser": "^3.4.0",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
