@@ -2,7 +2,7 @@
   z-index: 0;
   width: 400px;
   height: 609px;
-  opacity: 0;
+  // opacity: 1;
   position: absolute;
   top: 0;
   right: 15%;
@@ -10,12 +10,71 @@
   left: auto;
   margin: auto;
 
-  // svg {
-  //   // // width: 100%;
-  //   // height: auto;
-  //   // bottom: 0;
-  //   // transform: rotateZ(30deg) !important;
-  // }
+  /*---------start intro zoom*/
+  .logo-char-for-telegram {
+    position: absolute;
+    background: rgba(0, 0, 0, 0);
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    /*   -webkit-animation: logo-char-for-telegram 3s cubic-bezier(0.770, 0.000, 0.175, 1.000) reverse both;
+  animation: logo-char-for-telegram 3s cubic-bezier(0.770, 0.000, 0.175, 1.000) reverse both; */
+  }
+  @keyframes logo-char-for-telegram {
+    0% {
+      -webkit-transform: scale(1) translateY(0);
+      transform: scale(1) translateY(0);
+      -webkit-transform-origin: 50% 16%;
+      transform-origin: 50% 16%;
+    }
+    100% {
+      -webkit-transform: scale(1.75) translateY(-15px);
+      transform: scale(1.75) translateY(-15px);
+      -webkit-transform-origin: top;
+      transform-origin: top;
+    }
+  }
+  /*---------end intro zoom*/
+
+  /*----------------start drow logo*/
+  svg .draw-logo {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 3;
+    stroke: rgba(0, 0, 0, 0);
+    fill: rgba(0, 0, 0, 0);
+    animation-duration: 4s;
+    animation-delay: 1s;
+    animation-timing-function: cubic-bezier(1, 0.02, 1, 0.56);
+    animation-fill-mode: forwards;
+    animation-name: draw-logo;
+  }
+  @keyframes draw-logo {
+    0% {
+      stroke-width: 3;
+      stroke: rgba(0, 0, 0, 0);
+      fill: rgba(0, 0, 0, 0);
+      stroke-dasharray: 3;
+      stroke-dashoffset: 40;
+    }
+    5% {
+      stroke: #ffd700;
+    }
+    30% {
+      stroke-width: 10;
+    }
+    90% {
+      fill: rgba(0, 0, 0, 0);
+      stroke-dasharray: 793;
+      stroke-dashoffset: 115;
+      stroke-width: 9;
+    }
+    100% {
+      stroke-width: 5;
+      stroke: #ffd700;
+      fill: rgba(0, 0, 0, 0);
+    }
+  }
 
   .solid-logo {
     position: absolute;
@@ -25,7 +84,7 @@
     left: 0;
     margin: auto;
     width: 100%;
-    opacity: 0;
+    // opacity: 1;
     transform: rotateZ(30deg) !important;
     z-index: 1;
   }
