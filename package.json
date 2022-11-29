@@ -14,7 +14,7 @@
     "animate.css": "^4.1.1",
     "firebase": "^9.9.4",
     "gh-pages": "^4.0.0",
-    "gsap-trial": "^3.9.0",
+    "gsap": "^3.11.3",
     "leaflet": "^1.7.1",
     "loaders.css": "^0.1.2",
     "react": "^17.0.2",
