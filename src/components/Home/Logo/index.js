@@ -1,165 +1,49 @@
-// import { useEffect, useRef } from 'react'
-// import gsap from 'gsap'
-// import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin'
-// import DrawSVGPlugin from 'gsap/DrawSVGPlugin'
-// import LogoV from '../../../assets/images/logo-new-v.svg'
-import './index.scss'
+import React, { useEffect, useRef } from 'react';
+import Vivus from 'vivus';
+import './index.scss';
 
 const Logo = () => {
-  // const bgRef = useRef()
+  const bgRef = useRef();
+  const svgRef = useRef(null);
 
-  // const outlineLogoRef0 = useRef()
-  // const outlineLogoRef1 = useRef()
-  // const outlineLogoRef2 = useRef()
-  // const outlineLogoRef3 = useRef()
-  // const outlineLogoRef4 = useRef()
-  // const outlineLogoRef5 = useRef()
-  // const outlineLogoRef6 = useRef()
-  // const outlineLogoRef7 = useRef()
+  useEffect(() => {
+    // Delay the animation to give the page time to fade in first
+    const animationTimeout = setTimeout(() => {
+      new Vivus(
+        svgRef.current,
+        {
+          type: 'oneByOne',
+          duration: 600, // A duration of 600 frames is roughly 10 seconds (at 60fps)
+          start: 'autostart',
+        }
+        // The callback function has been removed since we are not fading in an image
+      );
+    }, 1500); // 1.5-second delay before the animation starts
 
-  // const solidLogoRef = useRef()
-
-  // useEffect(() => {
-  //   gsap.registerPlugin(DrawSVGPlugin)
-
-  //   //#0
-  //   gsap
-  //     .timeline()
-  //     .to(bgRef.current, {
-  //       duration: 1,
-  //       opacity: 1,
-  //     })
-
-  //     .from(outlineLogoRef0.current, {
-  //       drawSVG: 0,
-  //       duration: 6,
-  //     })
-  //   //#1
-  //   gsap
-  //     .timeline()
-  //     .to(bgRef.current, {
-  //       duration: 1,
-  //       opacity: 1,
-  //     })
-
-  //     .from(outlineLogoRef1.current, {
-  //       drawSVG: 0,
-  //       duration: 6,
-  //     })
-  //   //#2
-  //   gsap
-  //     .timeline()
-  //     .to(bgRef.current, {
-  //       duration: 1,
-  //       opacity: 1,
-  //     })
-
-  //     .from(outlineLogoRef2.current, {
-  //       drawSVG: 0,
-  //       duration: 6,
-  //     })
-  //   //#3
-  //   gsap
-  //     .timeline()
-  //     .to(bgRef.current, {
-  //       duration: 1,
-  //       opacity: 1,
-  //     })
-
-  //     .from(outlineLogoRef3.current, {
-  //       drawSVG: 0,
-  //       duration: 6,
-  //     })
-  //   //#4
-  //   gsap
-  //     .timeline()
-  //     .to(bgRef.current, {
-  //       duration: 1,
-  //       opacity: 1,
-  //     })
-
-  //     .from(outlineLogoRef4.current, {
-  //       drawSVG: 0,
-  //       duration: 6,
-  //     })
-  //   //#5
-  //   gsap
-  //     .timeline()
-  //     .to(bgRef.current, {
-  //       duration: 1,
-  //       opacity: 1,
-  //     })
-
-  //     .from(outlineLogoRef5.current, {
-  //       drawSVG: 0,
-  //       duration: 6,
-  //     })
-
-  //   //#6
-  //   gsap
-  //     .timeline()
-  //     .to(bgRef.current, {
-  //       duration: 1,
-  //       opacity: 1,
-  //     })
-
-  //     .from(outlineLogoRef6.current, {
-  //       drawSVG: 0,
-  //       duration: 6,
-  //     })
-  //   //#7
-  //   gsap
-  //     .timeline()
-  //     .to(bgRef.current, {
-  //       duration: 1,
-  //       opacity: 1,
-  //     })
-
-  //     .from(outlineLogoRef7.current, {
-  //       drawSVG: 0,
-  //       duration: 6,
-  //     })
-
-  //   gsap.fromTo(
-  //     solidLogoRef.current,
-  //     {
-  //       opacity: 0,
-  //     },
-  //     {
-  //       opacity: 1,
-  //       delay: 4,
-  //       duration: 4,
-  //     }
-  //   )
-  // }, [])
+    // Cleanup the timeout if the component unmounts
+    return () => clearTimeout(animationTimeout);
+  }, []); // The empty dependency array ensures this runs only once
 
   return (
-    <div className="logo-container logo-char-for-telegram">
-      {/* <img
-        className="solid-logo"
-        ref={solidLogoRef}
-        src={LogoV}
-        alt="JavaScript,  Developer"
-      /> */}
+    <div className="logo-container" ref={bgRef}>
+      {/* The <img> tag for the solid logo has been completely removed */}
       <svg
+        ref={svgRef}
         version="1.0"
         xmlns="http://www.w3.org/2000/svg"
-        width="559pt"
-        height="897pt"
+        width="1200pt"
+        height="1500pt"
         viewBox="0 0 559 897"
-        // width="300.000000pt" height="300.000000pt" viewBox="0 0 300.000000 300.000000"
         preserveAspectRatio="xMidYMid meet"
       >
         <g
           className="svg-container"
-          transform="translate(0 457) scale(.1 -.1)"
+          transform="translate(0, 457) scale(0.1, -0.1)"
           fill="none"
         >
-          {/* <g
-          transform="translate(0.000000,300.000000) scale(0.100000,-0.100000)"
-          fill="#ffd70a"
-          stroke="none"
-        > */}
+
+
+          {/* Each path now has a ref that gets added to our array for animation */}
           <path
             className="draw-logo"
             // ref={outlineLogoRef0}
@@ -202,9 +86,8 @@ const Logo = () => {
           />
         </g>
       </svg>
-      ;
     </div>
-  )
-}
+  );
+};
 
-export default Logo
+export default Logo;
