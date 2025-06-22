@@ -13,7 +13,7 @@ const Logo = () => {
         svgRef.current,
         {
           type: 'oneByOne',
-          duration: 600, // A duration of 600 frames is roughly 10 seconds (at 60fps)
+          duration: 1000, // A duration of 600 frames is roughly 10 seconds (at 60fps)
           start: 'autostart',
         }
         // The callback function has been removed since we are not fading in an image

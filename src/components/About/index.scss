@@ -30,6 +30,7 @@
     justify-content: center;
     align-items: center;
     box-shadow: 0 0 20px 0px lightyellow;
+    
   }
 
   .face1 {
@@ -78,4 +79,8 @@
   83% {
     transform: rotateX(90deg);
   }
+}
+
+.container .about-page p{
+  font-weight: normal !important;
 }

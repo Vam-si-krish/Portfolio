@@ -84,23 +84,26 @@
       }
     }
 
-    a.contact-link {
-      &:after {
-        content: 'CONTACT';
-      }
-    }
-    a.contact-link {
-      &:after {
-        content: 'PROJECTS';
-      }
-    }
-
     a.portfolio-link {
       &:after {
         content: 'EXPERIENCE';
       }
     }
-
+    a.resume-link {
+      &:after {
+        content: 'RESUME';
+      }
+    }
+    a.projects-link {
+      &:after {
+        content: 'PROJECTS';
+      }
+    }
+    a.contact-link {
+      &:after {
+        content: 'CONTACT';
+      }
+    }
     a.active {
       svg {
         color: #ffd700;

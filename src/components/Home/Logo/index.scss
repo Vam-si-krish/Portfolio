@@ -72,12 +72,12 @@
 // }
 
 // /* Responsive adjustments for smaller screens */
-// @media (max-width: 1200px) {
-//   .logo-container {
-//     width: 450px;
-//     right: 10%;
-//   }
-// }
+@media (max-width: px) {
+  .logo-container {
+    display: none;
+  }
+}
+
 
 // @media (max-width: 768px) {
 //   /* On mobile, we make the logo a block element at the top */
@@ -91,3 +91,4 @@
 //     margin: 0 auto;
 //   }
 // }
+

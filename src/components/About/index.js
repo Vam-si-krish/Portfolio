@@ -32,8 +32,11 @@ const About = () => {
               idx={15}
             />
           </h1>
-          <p>UI developer consultant at Merck Group.</p>
-          <p align="LEFT">
+          <p>Creative React Developer with 5 years of experience developing intuitive, responsive user interfaces and improving user experience in modern web
+applications. Proficient in the React ecosystem (React.js, Next.js, Redux,TypeScript) and component-based architecture, with hands-on expertise in
+industry-standard tools and workflows. Skilled at turning complex requirements into clean, accessible, and scalable front-end solutions. Wellversed in Facebook’s front-end best practices and certified through Meta’s Front-End Developer Professional Certificate. Authorized to work in the
+U.S. without sponsorship</p>
+          {/* <p align="LEFT">
             Skilled in React.js, React Hooks, Redux, Javascript, CSS, HTML,
             Typescript, Jest, Scss, Bootstrap, Python, data science
             fundamentals, c programming .
@@ -41,7 +44,7 @@ const About = () => {
           <p>
             Strong programming skills with a Bachelor of Technology - BTech
             focused in Computer Science. 2020 graduate with CGPA of 7.5
-          </p>
+          </p> */}
         </div>
 
         <div className="stage-cube-cont">
