@@ -12,7 +12,7 @@ const Logo = () => {
       new Vivus(
         svgRef.current,
         {
-          type: 'oneByOne',
+          // type: 'scenario-sync',
           duration: 1000, // A duration of 600 frames is roughly 10 seconds (at 60fps)
           start: 'autostart',
         }

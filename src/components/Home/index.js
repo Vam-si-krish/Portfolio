@@ -9,7 +9,7 @@ import './index.scss'
 const Home = () => {
   const [letterClass, setLetterClass] = useState('text-animate')
 
-  const nameArray = 'amsi krish'.split('')
+  const nameArray = 'Vamsi krish'.split('')
   const jobArray = 'Web Developer'.split('')
 
   useEffect(() => {
@@ -28,9 +28,11 @@ const Home = () => {
             <br />
             <span className={`${letterClass} _13`}>I</span>
             <span className={`${letterClass} _14`}>'m</span>
-            <div className="text-zone__logo text-animate-hover">
+            <span className={`${letterClass} _14`}></span>
+            
+            {/* <div className="text-zone__logo text-animate-hover">
               <img src={LogoTitle} alt="v" />
-            </div>
+            </div> */}
             <AnimatedLetters
               letterClass={letterClass}
               strArray={nameArray}
