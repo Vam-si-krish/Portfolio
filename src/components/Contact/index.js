@@ -22,32 +22,36 @@ const Contact = () => {
     setIsSubmitting(true);
     setSubmissionStatus(null);
 
-    const formData = {
-      name: form.current.name.value,
-      email: form.current.email.value,
-      subject: form.current.subject.value,
-      message: form.current.message.value,
-      _subject: `New Message from Portfolio - ${form.current.name.value}`,
-    };
-    
-    const endpoint = 'https://formsubmit.co/ajax/vamsichiguruwada@gmail.com';
+    const formData = new FormData(e.target);
+    const ajaxEndpoint = 'https://formsubmit.co/ajax/vamsichiguruwada@gmail.com';
 
     try {
-      const response = await fetch(endpoint, {
+      const response = await fetch(ajaxEndpoint, {
         method: 'POST',
+        body: formData,
         headers: {
-          'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
-        body: JSON.stringify(formData),
       });
 
       const result = await response.json();
 
-      if (result.success === "true") {
+      if (result.success === 'true') {
         setSubmissionStatus('success');
       } else {
-        throw new Error(result.message || 'Form submission failed');
+        // This is where we catch the specific activation error from FormSubmit
+        if (result.message && result.message.toLowerCase().includes('activation')) {
+          const activate = window.confirm(
+            "This form needs a one-time activation. Click OK to be redirected and complete a CAPTCHA to activate your email."
+          );
+          if (activate) {
+            // If user agrees, trigger the standard HTML form submission for activation
+            e.target.submit();
+          }
+        } else {
+          // Handle all other errors
+          throw new Error(result.message || 'Form submission failed');
+        }
       }
     } catch (error) {
       console.error(error);
@@ -80,7 +84,14 @@ const Contact = () => {
                 <p>I will get back to you shortly.</p>
               </div>
             ) : (
-              <form ref={form} onSubmit={handleSubmit}>
+              // This form has both the standard `action` for the fallback,
+              // and the `onSubmit` for the JavaScript method.
+              <form
+                ref={form}
+                onSubmit={handleSubmit}
+                action="https://formsubmit.co/vamsichiguruwada@gmail.com"
+                method="POST"
+              >
                 <ul>
                   <li className="half">
                     <input placeholder="Name" type="text" name="name" required />
@@ -116,24 +127,20 @@ const Contact = () => {
             )}
           </div>
         </div>
-        
-        {/* --- Updated Address Information --- */}
         <div className="info-map">
-          Vamsi Krish Chiguruwada
-         
+          Vamsi Krishna Chiguruwada
           <br />
-          Boston, MA 02145 <br /> 
+          
+          Boston, MA 02145 <br />
           United States <br />
           <br />
           <span>vamsichiguruwada@gmail.com</span>
         </div>
-        
-        {/* --- Updated Map Coordinates --- */}
         <div className="map-wrap">
           <MapContainer center={[42.387959, -71.103088]} zoom={14}>
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
             <Marker position={[42.387959, -71.103088]}>
-              <Popup>Vamsi is based in Boston. Let's connect!</Popup>
+              <Popup>Vamsi is based in Somerville. Let's connect!</Popup>
             </Marker>
           </MapContainer>
         </div>
