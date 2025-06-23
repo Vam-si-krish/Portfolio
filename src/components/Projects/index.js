@@ -120,7 +120,7 @@ const Portfolio = () => {
           <h1>
             <AnimatedLetters
               letterClass={letterClass}
-              strArray={'My Experience'.split('')}
+              strArray={'My Projects'.split('')}
               idx={15}
             />
           </h1>

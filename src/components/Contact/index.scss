@@ -127,3 +127,28 @@
     display: none;
   }
 }
+
+/* Add these styles to the end of the file */
+
+.contact-form .success-message {
+  color: #00ff00; /* Green text for success */
+  text-align: center;
+  padding: 20px;
+  animation: fadeIn 1s;
+
+  h2 {
+    color: #ffd700;
+  }
+}
+
+.contact-form .error-message {
+  color: #ff4d4d; /* Red text for error */
+  text-align: center;
+  margin-top: 15px;
+}
+
+/* Optional: Add feedback to the submit button when it's disabled */
+.flat-button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
