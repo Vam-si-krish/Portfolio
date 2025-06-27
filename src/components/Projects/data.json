@@ -1,38 +1,20 @@
 [
-    {
-      "id": 1,
-      "title": "Crypto Tracker",
-      "image": "/images/project-crypto.png",
-      "description": "A real-time cryptocurrency tracking application built with React and WebSockets. It features live price updates, historical data charts, and a customizable watchlist.",
-      "tags": ["React", "TypeScript", "WebSockets", "Chart.js"],
-      "liveUrl": "https://your-live-project-url.com",
-      "githubUrl": "https://github.com/your-username/your-repo"
-    },
-    {
-      "id": 2,
-      "title": "E-commerce Storefront",
-      "image": "/images/project-ecommerce.png",
-      "description": "A full-featured e-commerce site using Next.js for server-side rendering and performance. Includes product pages, a shopping cart, and a checkout process.",
-      "tags": ["Next.js", "React", "Tailwind CSS", "Redux"],
-      "liveUrl": "https://your-live-project-url.com",
-      "githubUrl": "https://github.com/your-username/your-repo"
-    },
-    {
-      "id": 3,
-      "title": "Personal Blog Platform",
-      "image": "/images/project-blog.png",
-      "description": "A dynamic blog platform where users can read, write, and manage posts. Built with a Node.js/Express backend and a responsive React frontend.",
-      "tags": ["React", "Node.js", "Express", "MongoDB"],
-      "liveUrl": "https://your-live-project-url.com",
-      "githubUrl": "https://github.com/your-username/your-repo"
-    },
-    {
-      "id": 3,
-      "title": "Personal Blog Platform",
-      "image": "/images/project-blog.png",
-      "description": "A dynamic blog platform where users can read, write, and manage posts. Built with a Node.js/Express backend and a responsive React frontend.",
-      "tags": ["React", "Node.js", "Express", "MongoDB"],
-      "liveUrl": "https://your-live-project-url.com",
-      "githubUrl": "https://github.com/your-username/your-repo"
-    }
+  {
+    "id": 1,
+    "title": "Flatmate Expense Splitter",
+    "image": "/images/project-splitwise.png",
+    "description": "A web app where flatmates can log in, manage shared expenses, add equal or unequal splits, record payments, and see a log of all house activity. Built with React and Firebase.",
+    "tags": ["React", "Firebase", "Firestore", "Tailwind CSS"],
+    "liveUrl": "https://split.vamsikrish.com/",
+    "githubUrl": "https://github.com/vamsi-krish-chiguruwada/splitwise"
+  },
+  {
+    "id": 2,
+    "title": "Portfolio Website v1",
+    "image": "/images/portfolio-v2.png",
+    "description": "My first personal portfolio website, built with React. It features an interactive UI with particle effects, a projects section, and an integrated resume viewer.",
+    "tags": ["React", "Bootstrap", "React-Particles"],
+    "liveUrl": "https://v1.vamsikrish.com/",
+    "githubUrl": "https://github.com/vamsi-krish-chiguruwada/personal-portfolio-v3"
+  }
   ]

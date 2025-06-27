@@ -102,6 +102,11 @@ const Contact = () => {
                   <li>
                     <input placeholder="Subject" type="text" name="subject" required />
                   </li>
+                  <li><input
+                    type="hidden"
+                    name="_subject"
+                    value={`Portfolio Contact: ${form.current?.subject.value || ''} - from ${form.current?.name.value || ''}`}
+                  /></li>
                   <li>
                     <textarea
                       placeholder="Message"
@@ -109,6 +114,8 @@ const Contact = () => {
                       required
                     ></textarea>
                   </li>
+                  
+                  
                   <li>
                     <input
                       type="submit"
