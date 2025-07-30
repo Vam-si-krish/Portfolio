@@ -141,7 +141,7 @@ const Contact = () => {
           Boston, MA 02145 <br />
           United States <br />
           <br />
-          <span>vamsichiguruwada@gmail.com</span>
+          <span>vamsi@vamsikrish.com</span>
         </div>
         <div className="map-wrap">
           <MapContainer center={[42.387959, -71.103088]} zoom={14}>
