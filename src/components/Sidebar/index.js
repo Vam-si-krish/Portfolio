@@ -104,7 +104,7 @@ const Sidebar = () => {
         </li>
         <li>
           <a
-            href="https://github.com/vamsi-krish-chiguruwada"
+            href="https://github.com/Vam-si-krish"
             target="_blank"
             rel="noreferrer"
           >
