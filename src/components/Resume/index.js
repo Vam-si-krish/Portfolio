@@ -4,7 +4,7 @@ import Loader from 'react-loaders';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import './index.scss';
-import resumePdf from './VamsiKrishnaChiguruwadaResume-org.pdf';
+import resumePdf from './VamsiKrishna.pdf';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
