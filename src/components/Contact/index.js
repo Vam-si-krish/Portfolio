@@ -114,8 +114,8 @@ const Contact = () => {
                       required
                     ></textarea>
                   </li>
-                  
-                  
+
+
                   <li>
                     <input
                       type="submit"
@@ -137,7 +137,7 @@ const Contact = () => {
         <div className="info-map">
           Vamsi Krishna Chiguruwada
           <br />
-          
+
           Boston, MA 02145 <br />
           United States <br />
           <br />
@@ -156,5 +156,4 @@ const Contact = () => {
     </>
   );
 };
-
 export default Contact;
