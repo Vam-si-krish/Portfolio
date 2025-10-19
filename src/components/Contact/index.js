@@ -1,183 +1,159 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComments, faPaperPlane, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { useEffect, useState, useRef } from 'react';
 import Loader from 'react-loaders';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import AnimatedLetters from '../AnimatedLetters';
 import './index.scss';
 
-const Chatbot = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [messages, setMessages] = useState([
-        { sender: 'ai', text: "Hello! I'm an AI assistant trained on Vamsi's resume. How can I help you today?" }
-    ]);
-    const [input, setInput] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const chatWindowRef = useRef(null);
+const Contact = () => {
+  const [letterClass, setLetterClass] = useState('text-animate');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionStatus, setSubmissionStatus] = useState(null);
+  const form = useRef();
 
-    // --- SYSTEM PROMPT BASED ON RESUME ---
-    const systemPrompt = `
-You are an AI assistant representing Vamsi Krishna Chiguruwada, a professional Front-end Engineer. Your knowledge base is strictly limited to the information in this resume. Answer questions concisely and professionally, as if you are Vamsi, but make it clear you are an AI persona.
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLetterClass('text-animate-hover');
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
-**Vamsi Krishna Chiguruwada's Resume:**
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmissionStatus(null);
 
-**Summary:**
-- 5+ years of experience as a Front-end Engineer in FinTech and Healthcare.
-- Specializes in data-heavy, real-time web applications using React, Next.js, and TypeScript.
-- Proficient with GraphQL, WebSockets, and AG Grid.
-- Strong focus on accessibility (WCAG), role-based access control, and testing.
-- Holds a Meta Front-End Developer Professional Certificate and is U.S. work authorized.
-- Currently located in Boston, MA.
+    const formData = new FormData(e.target);
+    const ajaxEndpoint = 'https://formsubmit.co/ajax/vamsichiguruwada@gmail.com';
 
-**Skills:**
-- **Core Frontend & Frameworks:** React, JavaScript (ES6+), TypeScript, HTML, Next.js (SSR/SSG/ISR), CSS.
-- **State Management:** Redux, Recoil, React Context API.
-- **Styling & UI Libraries:** Tailwind CSS, Bootstrap, Material UI, Responsive Web Design, SASS/LESS.
-- **Backend & Data Handling:** RESTful APIs, GraphQL, WebSockets, Node.js, Postman, Swagger, OAuth2, JWT.
-- **Development Workflow & Tools:** Jest, Test Driven Development, Accessibility (WCAG, ARIA), NPM, Webpack, Agile, JIRA, GitHub, Git, AI Integrations, Figma, React Profiler, Lighthouse.
+    try {
+      const response = await fetch(ajaxEndpoint, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json',
+        },
+      });
 
-**Experience:**
-1.  **Yash Technologies | Front-End Web Developer (Sep 2022 - Aug 2024)**
-    - Client: Merck Group (Germany)
-    - Project: Sustainable Business Value (SBV) Dashboard in Healthcare/Compliance.
-    - Built a company-wide dashboard with React, TypeScript, and Next.js for leadership to monitor KPIs.
-    - Implemented role-based access control (RBAC) and audit trails for GDPR compliance.
-    - Improved client-side performance, cutting data fetching time by 30%.
+      const result = await response.json();
 
-2.  **Msys Technologies | Frontend Developer (Feb 2021 - Aug 2022)**
-    - Client: Intercontinental Exchange (ICE)
-    - Project: Bakkt crypto exchange.
-    - Built the core front-end for the crypto exchange using React and TypeScript.
-    - Integrated real-time market data via WebSockets, reducing UI latency by 30%.
-    - Co-designed API contracts and implemented request batching.
-
-3.  **Msys Technologies | Frontend Developer Intern (Feb 2020 - Jan 2021)**
-    - Built high-performance real-time market tables with AG Grid.
-    - Translated Figma designs into responsive web interfaces.
-
-**Education:**
-- **Hult International Business School (Aug 2024 - Jul 2025):** Master of Science (M.S.), Business Analytics (STEM Designated).
-- **Audisankara College of Engineering and Technology (Jul 2016 - Aug 2020):** Bachelor of Technology (B.Tech.), Computer Science and Engineering.
-
-**Contact Information:**
-- Email: vamsi@vamsikrish.com
-- Phone: +1 339-242-3758
-- LinkedIn: linkedin.com/in/vamsi-krish-c
-- GitHub: github.com/vam-si-krish
-- Website: vamsikrish.com
-`;
-
-    useEffect(() => {
-        if (chatWindowRef.current) {
-            chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+      if (result.success === 'true') {
+        setSubmissionStatus('success');
+      } else {
+        // This is where we catch the specific activation error from FormSubmit
+        if (result.message && result.message.toLowerCase().includes('activation')) {
+          const activate = window.confirm(
+            "This form needs a one-time activation. Click OK to be redirected and complete a CAPTCHA to activate your email."
+          );
+          if (activate) {
+            // If user agrees, trigger the standard HTML form submission for activation
+            e.target.submit();
+          }
+        } else {
+          // Handle all other errors
+          throw new Error(result.message || 'Form submission failed');
         }
-    }, [messages]);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!input.trim() || isLoading) return;
-
-        const newMessages = [...messages, { sender: 'user', text: input }];
-        setMessages(newMessages);
-        const userInput = input;
-        setInput('');
-        setIsLoading(true);
-
-        const chatHistoryForAPI = newMessages.map(msg => ({
-            role: msg.sender === 'user' ? 'user' : 'model',
-            parts: [{ text: msg.text }]
-        }));
-
-        try {
-            const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-
-            const payload = {
-                contents: chatHistoryForAPI,
-                systemInstruction: {
-                    parts: [{ text: systemPrompt }]
-                }
-            };
-
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error.message || 'API request failed');
-            }
-
-            const result = await response.json();
-            const aiResponseText = result.candidates?.[0]?.content?.parts?.[0]?.text;
-
-            if (aiResponseText) {
-                setMessages(prev => [...prev, { sender: 'ai', text: aiResponseText }]);
-            } else {
-                setMessages(prev => [...prev, { sender: 'ai', text: "Sorry, I couldn't generate a response. Please try again." }]);
-            }
-        } catch (error) {
-            console.error('Error calling Gemini API:', error);
-            setMessages(prev => [...prev, { sender: 'ai', text: `An error occurred: ${error.message}` }]);
-        } finally {
-            setIsLoading(false);
-        }
-    };
-    
-    const quickQuestionHandler = (question) => {
-        setInput(question);
-        // This makes it easy for the user to send the question
+      }
+    } catch (error) {
+      console.error(error);
+      setSubmissionStatus('error');
+    } finally {
+      setIsSubmitting(false);
     }
+  };
+
+  return (
+    <>
+      <div className="container contact-page">
+        <div className="text-zone">
+          <h1>
+            <AnimatedLetters
+              letterClass={letterClass}
+              strArray={'Contact Me'.split('')}
+              idx={15}
+            />
+          </h1>
+          {/* <p>
+            I am interested in freelance opportunities - especially on ambitious
+            projects. However, if you have any other requests or questions,
+            don't hesitate to contact me using the form below.
+          </p> */}
+          <div className="contact-form">
+            {submissionStatus === 'success' ? (
+              <div className="success-message">
+                <h2>Thank you for your message!</h2>
+                <p>I will get back to you shortly.</p>
+              </div>
+            ) : (
+              // This form has both the standard `action` for the fallback,
+              // and the `onSubmit` for the JavaScript method.
+              <form
+                ref={form}
+                onSubmit={handleSubmit}
+                action="https://formsubmit.co/vamsichiguruwada@gmail.com"
+                method="POST"
+              >
+                <ul>
+                  <li className="half">
+                    <input placeholder="Name" type="text" name="name" required />
+                  </li>
+                  <li className="half">
+                    <input placeholder="Email" type="email" name="email" required />
+                  </li>
+                  <li>
+                    <input placeholder="Subject" type="text" name="subject" required />
+                  </li>
+                  <li><input
+                    type="hidden"
+                    name="_subject"
+                    value={`Portfolio Contact: ${form.current?.subject.value || ''} - from ${form.current?.name.value || ''}`}
+                  /></li>
+                  <li>
+                    <textarea
+                      placeholder="Message"
+                      name="message"
+                      required
+                    ></textarea>
+                  </li>
 
 
-    return (
-        <>
-            <div className="chat-fab" onClick={() => setIsOpen(!isOpen)}>
-                <FontAwesomeIcon icon={isOpen ? faTimes : faComments} />
-            </div>
-
-            {isOpen && (
-                <div className="chat-window">
-                    <div className="chat-header">
-                        <h2>Vamsi's AI Assistant</h2>
-                        <p>Ask me about his resume!</p>
-                    </div>
-                    <div className="chat-body" ref={chatWindowRef}>
-                        {messages.map((msg, index) => (
-                            <div key={index} className={`message ${msg.sender}`}>
-                                <p dangerouslySetInnerHTML={{ __html: msg.text.replace(/\n/g, '<br />').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>') }} />
-                            </div>
-                        ))}
-                        {isLoading && (
-                            <div className="message ai">
-                                <Loader type="ball-pulse" />
-                            </div>
-                        )}
-                    </div>
-                     <div className="quick-questions">
-                        <button onClick={() => quickQuestionHandler("What are your skills?")}>Skills</button>
-                        <button onClick={() => quickQuestionHandler("Summarize your experience")}>Experience</button>
-                        <button onClick={() => quickQuestionHandler("What is your education?")}>Education</button>
-                    </div>
-                    <div className="chat-footer">
-                        <form onSubmit={handleSubmit}>
-                            <input
-                                type="text"
-                                value={input}
-                                onChange={(e) => setInput(e.target.value)}
-                                placeholder="Ask a question..."
-                                disabled={isLoading}
-                            />
-                            <button type="submit" disabled={isLoading}>
-                                <FontAwesomeIcon icon={faPaperPlane} />
-                            </button>
-                        </form>
-                    </div>
-                </div>
+                  <li>
+                    <input
+                      type="submit"
+                      className="flat-button"
+                      value={isSubmitting ? 'SENDING...' : 'SEND'}
+                      disabled={isSubmitting}
+                    />
+                  </li>
+                </ul>
+                {submissionStatus === 'error' && (
+                  <p className="error-message">
+                    Failed to send message. Please try again later.
+                  </p>
+                )}
+              </form>
             )}
-        </>
-    );
+          </div>
+        </div>
+        <div className="info-map">
+          Vamsi Krishna Chiguruwada
+          <br />
+
+          Boston, MA 02145 <br />
+          United States <br />
+          <br />
+          <span>vamsi@vamsikrish.com</span>
+        </div>
+        <div className="map-wrap">
+          <MapContainer center={[42.387959, -71.103088]} zoom={14}>
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            <Marker position={[42.387959, -71.103088]}>
+              <Popup>Vamsi is based in Somerville. Let's connect!</Popup>
+            </Marker>
+          </MapContainer>
+        </div>
+      </div>
+      <Loader type="pacman" />
+    </>
+  );
 };
-
-export default Chatbot;
-
+export default Contact;
