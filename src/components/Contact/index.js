@@ -77,7 +77,7 @@ You are an AI assistant representing Vamsi Krishna Chiguruwada, a professional F
 
         const newMessages = [...messages, { sender: 'user', text: input }];
         setMessages(newMessages);
-        const userInput = input;
+        // const userInput = input;
         setInput('');
         setIsLoading(true);
 
