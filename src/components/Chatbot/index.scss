@@ -1,0 +1,202 @@
+.chat-fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #ffd700;
+    color: #1d1d1d;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+  
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+  
+  .chat-window {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 370px;
+    max-width: 90vw;
+    height: 60vh;
+    max-height: 600px;
+    background-color: #1d1d1d;
+    border: 1px solid #ffd700;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    z-index: 999;
+    overflow: hidden;
+    animation: slideIn 0.3s ease-out;
+  
+    .chat-header {
+      background-color: #282828;
+      padding: 15px;
+      border-bottom: 1px solid #333;
+      text-align: center;
+      h2 {
+        margin: 0;
+        color: #ffd700;
+        font-size: 1.2rem;
+      }
+      p {
+        margin: 0;
+        color: #a0a0a0;
+        font-size: 0.8rem;
+      }
+    }
+  
+    .chat-body {
+      flex-grow: 1;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+  
+      .message {
+        display: flex;
+        max-width: 80%;
+        p {
+          padding: 10px 15px;
+          border-radius: 18px;
+          margin: 0;
+          line-height: 1.5;
+          font-size: 0.95rem;
+          word-wrap: break-word;
+  
+          strong {
+            font-weight: bold;
+            color: #ffd700;
+          }
+  
+          ul {
+              padding-left: 20px;
+              margin-top: 5px;
+          }
+  
+          li {
+              margin-bottom: 4px;
+          }
+        }
+  
+        &.user {
+          align-self: flex-end;
+          p {
+            background-color: #ffd700;
+            color: #1d1d1d;
+            border-bottom-right-radius: 4px;
+          }
+        }
+  
+        &.ai {
+          align-self: flex-start;
+          p {
+            background-color: #3a3a3a;
+            color: #e0e0e0;
+            border-bottom-left-radius: 4px;
+          }
+          .loader-hidden {
+              display: none;
+          }
+          .loader-active {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 20px;
+              div {
+                  background-color: #ffd700;
+              }
+          }
+        }
+      }
+    }
+    
+    .quick-questions {
+      padding: 10px 15px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      border-top: 1px solid #333;
+  
+      button {
+          background-color: #3a3a3a;
+          color: #e0e0e0;
+          border: 1px solid #555;
+          border-radius: 20px;
+          padding: 5px 12px;
+          font-size: 0.8rem;
+          cursor: pointer;
+          transition: background-color 0.2s;
+  
+          &:hover {
+              background-color: #4a4a4a;
+          }
+      }
+    }
+  
+    .chat-footer {
+      padding: 15px;
+      border-top: 1px solid #333;
+  
+      form {
+        display: flex;
+        gap: 10px;
+  
+        input {
+          flex-grow: 1;
+          border: 1px solid #444;
+          background-color: #282828;
+          border-radius: 20px;
+          padding: 10px 15px;
+          color: #fff;
+          font-size: 0.95rem;
+  
+          &:focus {
+            outline: none;
+            border-color: #ffd700;
+          }
+        }
+  
+        button {
+          background-color: #ffd700;
+          border: none;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          color: #1d1d1d;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+  
+          &:disabled {
+              background-color: #555;
+              cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+  
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

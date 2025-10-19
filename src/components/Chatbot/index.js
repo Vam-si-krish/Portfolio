@@ -77,7 +77,6 @@ You are an AI assistant representing Vamsi Krishna Chiguruwada, a professional F
 
         const newMessages = [...messages, { sender: 'user', text: input }];
         setMessages(newMessages);
-        const userInput = input;
         setInput('');
         setIsLoading(true);
 
@@ -88,6 +87,9 @@ You are an AI assistant representing Vamsi Krishna Chiguruwada, a professional F
 
         try {
             const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
+            if (!apiKey) {
+                throw new Error("API key is not configured. Please create a .env file with REACT_APP_GEMINI_API_KEY.");
+            }
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
 
             const payload = {
@@ -126,7 +128,6 @@ You are an AI assistant representing Vamsi Krishna Chiguruwada, a professional F
     
     const quickQuestionHandler = (question) => {
         setInput(question);
-        // This makes it easy for the user to send the question
     }
 
 
